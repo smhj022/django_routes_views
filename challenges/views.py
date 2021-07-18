@@ -1,7 +1,8 @@
-from django.http.response import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.http.request import HttpRequest
-from django.urls import reverse
+from django.http.response import (HttpResponse, HttpResponseNotFound,
+                                  HttpResponseRedirect)
 from django.shortcuts import redirect, render
+from django.urls import reverse
 
 # Create your views here.
 monthly_challenges = {
@@ -14,14 +15,22 @@ monthly_challenges = {
     "july": "learn django",
     "august": "suyash",
     "september": "mahajan",
+    "november": "Doing Great",
+    "december": None
 }
+
+
+def index(request):
+    months = list(monthly_challenges.keys())
+    print(months)
+    return render(request, "challenges/index.html", {"months_name": months})
 
 
 def monthly_challenge_by_number(request, month):
     if month <= len(monthly_challenges):
         months = list(monthly_challenges.keys())
         redirect_month = months[month-1]
-        redirect_path =  reverse(monthly_challenge, args=[redirect_month]) #will give the path eg /challenges/january
+        redirect_path = reverse(monthly_challenge, args=[redirect_month])  # will give the path eg /challenges/january
         return HttpResponseRedirect(redirect_path)
     else:
         return HttpResponseNotFound("Invaid Month")
@@ -29,17 +38,7 @@ def monthly_challenge_by_number(request, month):
 
 def monthly_challenge(request, month):
     try:
-        return HttpResponse(f"<h1>{monthly_challenges[month]}</h1>")
-    except KeyError:
+        month_challenge = monthly_challenges[month]
+        return render(request, "challenges/challenge.html", {"text": month_challenge, "month_name": month.capitalize()})
+    except Exception:
         return HttpResponseNotFound("<h1>Month not found</h1>")
-
-def months_list(request):
-    list_item = ""
-    months = list(monthly_challenges.keys())
-
-    for month in months:
-        month_link = reverse(monthly_challenge, args=[month])
-        list_item += f'<li><a href="{month_link}">{month.capitalize()}</a></li>'
-     
-    response_data = f"<ul>{list_item}</ul>"
-    return HttpResponse(response_data)
