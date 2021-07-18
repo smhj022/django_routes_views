@@ -617,3 +617,4 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/django,python,visualstudio,visualstudiocode
 {"mode":"full","isActive":false}
 .vscode/settings.json
+main.py
