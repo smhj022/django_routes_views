@@ -1,5 +1,5 @@
 from django.http.request import HttpRequest
-from django.http.response import (HttpResponse, HttpResponseNotFound,
+from django.http.response import (Http404, HttpResponseNotFound,
                                   HttpResponseRedirect)
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
@@ -42,5 +42,4 @@ def monthly_challenge(request, month):
         month_challenge = monthly_challenges[month]
         return render(request, "challenges/challenge.html", {"text": month_challenge, "month_name": month.capitalize()})
     except Exception:
-        response_data = render_to_string("404.html")
-        return HttpResponseNotFound(response_data)
+        raise Http404()
