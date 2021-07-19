@@ -8,10 +8,10 @@ from django.urls import reverse
 # Create your views here.
 monthly_challenges = {
     "january": "go for walk atleast 20min",
-    "february": "learn django for atleat 1 hour ",
+    "february": "learn django for at leat 1 hour ",
     "march": "learn web development",
     "april": "Go for a drive",
-    "may": "go for a walk atleast 20min",
+    "may": "go for a walk at least 20min",
     "june": "celebrate birthday",
     "july": "learn django",
     "august": "suyash",
